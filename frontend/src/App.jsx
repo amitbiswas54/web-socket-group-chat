@@ -20,7 +20,7 @@ function App() {
 
     const soket =useRef(null)
     const timer = useRef(null)
-    
+    const msgEndRef = useRef(null)
 
     useEffect(()=>{
       soket.current= connectWS();
@@ -79,6 +79,11 @@ function App() {
       
 
     }, [text, userName])
+
+useEffect(() => {
+  msgEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+}, [messages])
+
 
     function formatTime(ts) {
       const d = new Date(ts);
@@ -200,7 +205,7 @@ function App() {
 
 
 
-<div className="max-w-5xl   bg-white min-h-screen rounded-2xl shadow-lg flex flex-col overflow-hidden mx-auto">
+<div className="max-w-5xl   bg-gray-800 max-h-screen min-h-screen rounded-2xl shadow-lg flex flex-col overflow-hidden mx-auto">
  
     {/* <!-- Header --> */}
     <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-white">
@@ -254,6 +259,7 @@ function App() {
         </div>
       )
      })}
+      <div ref={msgEndRef} />
       </div>
 {/*  
       <!-- Anchor for auto-scroll --> */}
